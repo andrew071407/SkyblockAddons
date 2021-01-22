@@ -182,7 +182,7 @@ public class Utils {
      */
     public boolean isOnHypixel() {
         final Pattern SERVER_BRAND_PATTERN = Pattern.compile("(.+) <- (?:.+)");
-        final String HYPIXEL_SERVER_BRAND = "BungeeCord (Hypixel)";
+        final String HYPIXEL_SERVER_BRAND = "Hypixel BungeeCord (1.0.0)";
 
         Minecraft mc = Minecraft.getMinecraft();
 
