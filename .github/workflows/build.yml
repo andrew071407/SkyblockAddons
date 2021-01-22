@@ -5,6 +5,15 @@ on:
     branches:
       - '**'
   pull_request:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'The branch to build'
+        required: true
+        default: 'automatic-build'
+      remote:
+        descriptoin: 'The custom remote link, e.g. https://github.com/RobotHanzo/SkyblockAddons'
+        required: false
 jobs:
   build:
     name: Build
@@ -14,6 +23,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Alternate origin to user specified
+      if: ${{ github.event.inputs.remote != '' }}
+      run: |
+        git remote remove origin
+        git remote add origin ${{ github.event.inputs.remote }}
+    - name: Check out to the branch user specified
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        git fetch origin
+        git checkout origin/${{ github.event.inputs.branch }}
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
@@ -42,3 +61,11 @@ jobs:
         property: version
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Upload mod jar
+      env:
+        mod_jar_name: ${{ steps.read_mod_name.outputs.value }}-${{ steps.read_mod_version.outputs.value }}-for-MC-${{ steps.read_mc_version.outputs.value }}
+        mod_jar_path: build/libs/${{ steps.read_mod_name.outputs.value }}-${{ steps.read_mod_version.outputs.value }}-for-MC-${{ steps.read_mc_version.outputs.value }}.jar
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: ${{ env.mod_jar_name }}
+        path: ${{ env.mod_jar_path }}
