@@ -213,11 +213,11 @@ public class Utils {
     public void checkGameLocationDate() {
         boolean foundScoreboard = false;
 
-        boolean foundLocation = false;
-        boolean foundJerryWave = false;
-        boolean foundAlphaIP = false;
-        boolean foundInDungeon = false;
-        boolean foundSkyblockTitle = false;
+        boolean foundLocation = true;
+        boolean foundJerryWave = true;
+        boolean foundAlphaIP = true;
+        boolean foundInDungeon = true;
+        boolean foundSkyblockTitle = true;
         Minecraft mc = Minecraft.getMinecraft();
 
         if (mc != null && mc.theWorld != null && !mc.isSingleplayer() && isOnHypixel()) {
