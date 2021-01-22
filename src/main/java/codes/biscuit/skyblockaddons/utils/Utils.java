@@ -6,7 +6,7 @@ import codes.biscuit.skyblockaddons.events.SkyblockJoinedEvent;
 import codes.biscuit.skyblockaddons.events.SkyblockLeftEvent;
 import codes.biscuit.skyblockaddons.features.backpacks.ContainerPreview;
 import codes.biscuit.skyblockaddons.features.itemdrops.ItemDropChecker;
-import codes.biscuit.skyblockaddons.misc.scheduler.Scheduler;
+import codes.biscuit.skyblockaddons.misc.scheduler.Scheduler;co
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -659,7 +659,7 @@ public class Utils {
                     result.write(buffer, 0, length);
                 }
                 String dataString = result.toString("UTF-8");
-                main.getConfigValues().setLanguageConfig(JsonParser.parseString(dataString).getAsJsonObject());
+                main.getConfigValues().setLanguageConfig(new JsonParser().parse(dataString).getAsJsonObject());
                 fileStream.close();
             }
         } catch (JsonParseException | IllegalStateException | IOException ex) {
